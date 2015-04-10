@@ -17,11 +17,12 @@ using a statistical understanding of the data and the terms within it.
 The **Get Parametric Values**, **Find related concepts** and **Find
 Similar Documents** Apis also make use of IDOL's conceptual capabilities
 
-    /querytextindex/v1?text=Red+Panda&database\_match=wiki\_eng
+.. http:post:: :: /querytextindex/v1?text=Red+Panda&database\_match=wiki\_eng
 
-::
+.. code-block:: javascript
 
     {
+    "documents":[
         {
           "reference": "http://en.wikipedia.org/wiki/Red Panda Adventures",
           "weight": 84.59,
@@ -43,8 +44,9 @@ Similar Documents** Apis also make use of IDOL's conceptual capabilities
           "index": "wiki_eng",
           "title": "Red panda",
           "content": {}
-        },
-       ...
+        }
+      ]
+      }
 
 IDOL indexes assign weights to terms based on their relevance to the
 dataset. As a simplified example, if every document in your index is
@@ -68,7 +70,7 @@ Search Operators
 
 **Wildcard search**
 
-    /querytextindex/v1?text=Obam\*
+.. http:post:: :: /querytextindex/v1?text=Obam\*
 
 the ``*`` operator operates as the usual wildcard operator. In our
 example we search for any term that start with Obam. **Tip:** don't run
@@ -77,7 +79,7 @@ return.
 
 **Occurence search**
 
-    /querytextindex/v1?text=Gene[3:5]
+.. http:post:: :: /querytextindex/v1?text=Gene[3:5]
 
 By specifying a column separated range of numbers within curly brackets,
 we are able to specify the number of occurences we are looking for. In
@@ -86,7 +88,7 @@ will be returned.
 
 **Exact Term Match**
 
-    /querytextindex/v1?text="lovely"
+.. http:post:: :: /querytextindex/v1?text="lovely"
 
 By putting a term in between quotes, you can ensure that the exact
 version of the word will be looked for and not other versions that share
@@ -111,24 +113,24 @@ Boolean Operators
 The text Parameter offers a level of boolean search or bracketed boolean
 Search.
 
-    /querytextindex/v1?text="Red+Panda" **AND** Elephant
+.. http:post:: :: /querytextindex/v1?text="Red+Panda" **AND** Elephant
 
 Boolean operator need to be capitalized , we can search for documents
 containing both red pandas and elephants.
 
-    /querytextindex/v1?text=(Panda **OR** Elephant)\ **AND** Lion
+.. http:post:: :: /querytextindex/v1?text=(Panda **OR** Elephant)\ **AND** Lion
 
 We can use brackets to group together elements and ensure the correct
 order in which the operators should be applied. In this casee want any
 document that mentions lions AND either pandas or elephants
 
-    /querytextindex/v1?text=cat **XOR** dog
+.. http:post:: :: /querytextindex/v1?text=cat **XOR** dog
 
 XOR stands for exclusive OR and will return documents that contain
 either *cat* or *dog* but NOT the two at the same time
 
-    | /querytextindex/v1?text=cat **NOT** dog
-    | /querytextindex/v1?text=(cat **NOT** dog) **OR** (dog **NOT** cat)
+.. http:post:: :: /querytextindex/v1?text=cat **NOT** dog
+.. http:post:: :: /querytextindex/v1?text=(cat **NOT** dog) **OR** (dog **NOT** cat)
 
 The NOT operator can restrict your searches NOT to include certain
 terms. In the example above we show how to return documents about cats
@@ -145,7 +147,7 @@ Proximity and order Operators
 
 **Sentence and Paragraph search**
 
-    /querytextindex/v1?text=cat SENTENCE dog /querytextindex/v1?text=cat
+.. http:post:: :: /querytextindex/v1?text=cat SENTENCE dog /querytextindex/v1?text=cat
     PARAGRAPH dog
 
 The *SENTENCE* and *PARAGRAPH* operators allow you to make sure that two
@@ -154,7 +156,7 @@ paragraph.
 
 **Order Operators**
 
-    /querytextindex/v1?text=cat BEFORE dog /querytextindex/v1?text=cat
+.. http:post:: :: /querytextindex/v1?text=cat BEFORE dog /querytextindex/v1?text=cat
     AFTER dog
 
 The *BEFORE* and *AFTER* operators act like the *AND* operator and
@@ -163,7 +165,7 @@ check that cat appears *BEFORE* dog or *AFTER* dog in the 2nd case.
 
 **Term Proximity**
 
-    /querytextindex/v1?text=(monkey NEAR4 red)
+.. http:post:: :: /querytextindex/v1?text=(monkey NEAR4 red)
 
 The NEAR\ *N* allows you to specify a maximum word distance between the
 terms you are querying for. In our example, the words monkey and red
@@ -171,7 +173,7 @@ need to be within 4 words of each other. This allows us to make sure
 that the term red is associated closely with the term spider, returning
 documents such as *Red-tailed monkey* or *Red-faced spider monkey*
 
-    /querytextindex/v1?text=(red DNEAR3 monkey)
+.. http:post:: :: /querytextindex/v1?text=(red DNEAR3 monkey)
 
 DNEAR\ *N* is in fact a directed NEAR\ *N* , it ensures that the terms
 appear in that order like the *BEFORE* operator , but also restricts the
@@ -205,7 +207,7 @@ cannot be adjacent to brackets.
 
 **Searching specific index fields**
 
-    /querytextindex/v1?text=galaxy:DRETITLE /querytextindex/v1?text=("LA
+.. http:post:: :: /querytextindex/v1?text=galaxy:DRETITLE /querytextindex/v1?text=("LA
     galaxy"):DRETITLE /querytextindex/v1?text=("LA galaxy"):DRETITLE AND
     Beckham
 
@@ -216,7 +218,7 @@ formulae.
 
 **Using multipliers to modify term weights**
 
-    /querytextindex/v1?text=Red Panda[\*5]
+.. http:post:: :: /querytextindex/v1?text=Red Panda[\*5]
 
 You can adjust the weight of a specific term by specifying a multipliers
 by which the weight of the term in your query will be multiplied. In our
@@ -226,7 +228,7 @@ Pandas.
 
 **Setting manual term weights at the query level**
 
-    /querytextindex/v1?text=Red[10] Panda[20]
+.. http:post:: :: /querytextindex/v1?text=Red[10] Panda[20]
 
 It is also possible to set manual weights through the use of square
 brackets. In our case we are setting the weight of the term Panda to 20
@@ -234,7 +236,7 @@ and the weight of the term Red to 10.
 
 **Applying weights to bracketed expressions**
 
-    /querytextindex/v1?text= (Spider Monkey)[\*3] OR Tiger
+.. http:post:: :: /querytextindex/v1?text= (Spider Monkey)[\*3] OR Tiger
 
 We can multiply the weights of any bracketed expression to adjust
 relevance , in this case we assign a triple weight to spider and monkey
@@ -275,9 +277,9 @@ retrieve all the color values that occur in a search, and the
 corresponding counts. A common use for this information is to provide
 filters to a search
 
-    /getparametricvalues/v1?index=wiki\_eng&field\_name=wikipedia\_type
+.. http:post:: :: /getparametricvalues/v1?index=wiki\_eng&field\_name=wikipedia\_type
 
-.. code:: language-json
+.. code-block:: javascript
 
     {
       "WIKIPEDIA_TYPE": {
@@ -308,26 +310,24 @@ further in this How To
 This means that if I want to run the same query as above but only on
 documents about cats and dogs, I would simply have to run
 
-    /getparametricvalues/v1?index=wiki\_eng&field\_name=wikipedia\_type&**text=**\ cats
-    AND dogs
+.. http:post:: :: /getparametricvalues/v1?index=wiki\_eng&field\_name=wikipedia\_type&**text=**\ cats AND dogs
+    .. code-block:: javascript
 
-.. code:: language-json
-
-    {
-      "WIKIPEDIA_TYPE": {
-        "PERSON": 32738,
-        "MUSICAL ALBUM": 4885,
-        "BOOK": 3704,
-        "FILM": 6012,
-        "COMPANY": 3119,
-        "SONG": 2079,
-        "VIDEO GAME": 1158,
-        "PLACE": 6280,
-        "GEOGRAPHICAL FEATURE": 1302,
-        "SPECIES": 2835,
-        "PLAY": 441
-      }
-    }
+        {
+          "WIKIPEDIA_TYPE": {
+            "PERSON": 32738,
+            "MUSICAL ALBUM": 4885,
+            "BOOK": 3704,
+            "FILM": 6012,
+            "COMPANY": 3119,
+            "SONG": 2079,
+            "VIDEO GAME": 1158,
+            "PLACE": 6280,
+            "GEOGRAPHICAL FEATURE": 1302,
+            "SPECIES": 2835,
+            "PLAY": 441
+          }
+        }
 
 These fields can be used in search implementations to provide a list of
 all the available values for certain queries so that queries can then be
@@ -338,19 +338,19 @@ Text match selectors
 
 **Matching a single value**
 
-    /querytextindex/v1?text=Painting&**fieldtext=**\ MATCH{PERSON}:WIKIPEDIA\_TYPE
+.. http:post:: :: /querytextindex/v1?text=Painting&**fieldtext=**\ MATCH{PERSON}:WIKIPEDIA\_TYPE
 
 Since we have shown above that PERSON is a parametric entry for the
 WIKIPEDIA\_TYPE field, we can run a search for all the documents that
 relate to painting that are of type *PERSON*.
 
-    /getparametricvalues/v1?index=wiki\_eng&field\_name=**person\_profession**\ &text=painting&\ **fieldtext=**\ MATCH{PERSON}:WIKIPEDIA\_TYPE
+.. http:post:: :: /getparametricvalues/v1?index=wiki\_eng&field\_name=**person\_profession**\ &text=painting&\ **fieldtext=**\ MATCH{PERSON}:WIKIPEDIA\_TYPE
 
 The previous query did not give us all the *painters* however, so we can
 run another parametric query to find the list of the professions that
 get returned from our query of Persons related to painting.
 
-.. code:: language-json
+.. code-block:: javascript
 
     {
       "PERSON_PROFESSION": {
@@ -362,7 +362,7 @@ get returned from our query of Persons related to painting.
 
 It seems Painter is the value that we want
 
-    /querytextindex/v1?text=Painting&**fieldtext=**\ MATCH{PERSON}:WIKIPEDIA\_TYPE
+.. http:post:: :: /querytextindex/v1?text=Painting&**fieldtext=**\ MATCH{PERSON}:WIKIPEDIA\_TYPE
     **AND** MATCH{PAINTER}:PERSON\_PROFESSION
 
 While it may be redundant in this case, as the entries with a
@@ -372,7 +372,7 @@ all the Painters related to *painting* .
 
 **Matching multiple values**
 
-    /querytextindex/v1?text=Painting&**fieldtext=**\ MATCHALL{PAINTER,SCULPTOR}:PERSON\_PROFESSION
+.. http:post:: :: /querytextindex/v1?text=Painting&**fieldtext=**\ MATCHALL{PAINTER,SCULPTOR}:PERSON\_PROFESSION
 
 It could be that we want to get all the people who were BOTH painters
 and sculptors, the MATCHALL operator ensure that each of the values
@@ -380,7 +380,7 @@ specified has a match in the documents returned.
 
 **Matching a value exclusively**
 
-    /querytextindex/v1?text=Painting&**fieldtext=**\ MATCHCOVER{PAINTER}:PERSON\_PROFESSION
+.. http:post:: :: /querytextindex/v1?text=Painting&**fieldtext=**\ MATCHCOVER{PAINTER}:PERSON\_PROFESSION
 
 Should we want the people who were ONLY painters, the MATCHCOVER
 specifier will make sure that all values of the PERSON\_PROFESSION field
@@ -388,7 +388,7 @@ match *PAINTER*
 
 **Excluding Matches**
 
-    /querytextindex/v1?text=Painting&**fieldtext=**\ NOTMATCH{PAINTER}:PERSON\_PROFESSION
+.. http:post:: :: /querytextindex/v1?text=Painting&**fieldtext=**\ NOTMATCH{PAINTER}:PERSON\_PROFESSION
 
 NOTMATCH does what it says, the value specified will NOT be present in
 any of the specified fields for the results returned.
@@ -399,19 +399,19 @@ Numeric Search
 When dealing with Numeric type fields, many numeric operations are
 possible
 
-    /querytextindex/v1?text=\*&fieldtext=**GREATER{1000000}**:PLACE\_POPULATION
+.. http:post:: :: /querytextindex/v1?text=\*&fieldtext=**GREATER{1000000}**:PLACE\_POPULATION
 
 We can look for places with more than a million people.
 
-    /querytextindex/v1?text=\*&fieldtext=**LESS{100000}**:PLACE\_POPULATION
+.. http:post:: :: /querytextindex/v1?text=\*&fieldtext=**LESS{100000}**:PLACE\_POPULATION
 
 We can look for places with less than 100000 people.
 
-    /querytextindex/v1?text=\*&fieldtext=**EQUAL{1061235}**:PLACE\_POPULATION
+.. http:post:: :: /querytextindex/v1?text=\*&fieldtext=**EQUAL{1061235}**:PLACE\_POPULATION
 
 We can look for documents with population exactly equal to 1061235.
 
-    /querytextindex/v1?text=\*&fieldtext=**NRANGE{12,26}**:PLACE\_POPULATION
+.. http:post:: :: /querytextindex/v1?text=\*&fieldtext=**NRANGE{12,26}**:PLACE\_POPULATION
 
 We can look for documents with population between 12 and 26
 
@@ -422,12 +422,11 @@ Numeric fields can define many things, like population or prices,
 however, two numeric fields paired together can also indicate
 coordinates.
 
-    querytextindex/v1?text=\*&fieldtext=\ **DISTCARTESIAN**\ {40,-100,2}:X:Y
-    querytextindex/v1?text=\*&fieldtext=\ **DISTCARTESIAN**\ {x,y,radius}:X:Y
+.. http:post:: :: /querytextindex/v1?text=\*&fieldtext=\ **DISTCARTESIAN**\ {40,-100,2}:X:Y
+.. http:post:: :: /querytextindex/v1?text=\*&fieldtext=\ **DISTCARTESIAN**\ {x,y,radius}:X:Y
 
-    querytextindex/v1?text=\*&fieldtext=\ **DISTSPHERICAL**\ {40,-100,2}:LAT:LON
-    querytextindex/v1?text=\*&fieldtext=\ **DISTSPHERICAL**\ {lat,lon,radius
-    in KM}:LAT:LON
+.. http:post:: :: /querytextindex/v1?text=\*&fieldtext=\ **DISTSPHERICAL**\ {40,-100,2}:LAT:LON
+.. http:post:: :: /querytextindex/v1?text=\*&fieldtext=\ **DISTSPHERICAL**\ {lat,lon,radius in KM}:LAT:LON
 
 Places indexed in the wikipedia dataset have LAT and LON fields,
 indicating their approximate coordinates. DISTCARTESIAN will treat the
@@ -441,13 +440,13 @@ Date Search
 
 Date fields allow for useful date filtering on the results.
 
-    /querytextindex/v1?text=\*&fieldtext=**GTNOW{}**:CREATED\_DATE
-    /querytextindex/v1?text=\*&fieldtext=**LTNOW{}**:CREATED\_DATE
+.. http:post:: :: /querytextindex/v1?text=\*&fieldtext=**GTNOW{}**:CREATED\_DATE
+.. http:post:: :: /querytextindex/v1?text=\*&fieldtext=**LTNOW{}**:CREATED\_DATE
 
 *GTNOW* and *LTNOW* let you restrict for articles created in the past ,
 or the future !
 
-    /querytextindex/v1?text=\*&fieldtext=**RANGE{-7,0}**:CREATED\_DATE
+.. http:post:: :: /querytextindex/v1?text=\*&fieldtext=**RANGE{-7,0}**:CREATED\_DATE
 
 The RANGE operator lets you specify exact time range for which the
 specified DATE field will be checked against. In our example we want
@@ -471,15 +470,14 @@ Other Operations
 The fieldtext operator supports the three basic boolean operators NOT,
 AND and OR.
 
-    /querytextindex/v1?text=Painting&fieldtext=MATCH{PERSON}:WIKIPEDIA\_TYPE
-    **AND** MATCH{PAINTER}:PERSON\_PROFESSION
+.. http:post:: :: /querytextindex/v1?text=Painting&fieldtext=MATCH{PERSON}:WIKIPEDIA\_TYPE **AND** MATCH{PAINTER}:PERSON\_PROFESSION
 
-    /querytextindex/v1?text=\*&fieldtext=**GREATER{1000000}**:PLACE\_POPULATION
-    **OR** **DISTCARTESIAN**\ {50,-10,2}:LAT:LON
+.. http:post:: :: /querytextindex/v1?text=\*&fieldtext=**GREATER{1000000}**:PLACE\_POPULATION **OR** **DISTCARTESIAN**\ {50,-10,2}:LAT:LON
 
-**Field Existence** >
-/querytextindex/v1?text=\*&fieldtext=**EXISTS{}**:PLACE\_POPULATION >
-/querytextindex/v1?text=\*&fieldtext=**EMPTY{}**:PLACE\_POPULATION
+**Field Existence**
+
+.. http:post:: :: /querytextindex/v1?text=\*&fieldtext=**EXISTS{}**:PLACE\_POPULATION
+.. http:post:: :: /querytextindex/v1?text=\*&fieldtext=**EMPTY{}**:PLACE\_POPULATION
 
 The EXISTS Operator allows us to ensure that a field is present in the
 result. Here we are only returning documents that have the field

@@ -69,7 +69,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#numeric-search">Numeric Search</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#geo-coordinate-search">Geo/Coordinate Search</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#date-search">Date Search</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#other-operations">6 Other Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-operations">Other Operations</a></li>
 </ul>
 </li>
 </ul>
@@ -121,32 +121,37 @@ conceptually relevant results without requiring training but simply by
 using a statistical understanding of the data and the terms within it.
 The <strong>Get Parametric Values</strong>, <strong>Find related concepts</strong> and <strong>Find
 Similar Documents</strong> Apis also make use of IDOL&#8217;s conceptual capabilities</p>
-<blockquote>
-<div>/querytextindex/v1?text=Red+Panda&amp;database_match=wiki_eng</div></blockquote>
-<div class="highlight-python"><div class="highlight"><pre>{
-    {
-      &quot;reference&quot;: &quot;http://en.wikipedia.org/wiki/Red Panda Adventures&quot;,
-      &quot;weight&quot;: 84.59,
-      &quot;links&quot;: [
-        &quot;RED&quot;,
-        &quot;PAND&quot;
-      ],
-      &quot;index&quot;: &quot;wiki_eng&quot;,
-      &quot;title&quot;: &quot;Red Panda Adventures&quot;,
-      &quot;content&quot;: {}
-    },
-    {
-      &quot;reference&quot;: &quot;http://en.wikipedia.org/wiki/Red panda&quot;,
-      &quot;weight&quot;: 84.59,
-      &quot;links&quot;: [
-        &quot;RED&quot;,
-        &quot;PAND&quot;
-      ],
-      &quot;index&quot;: &quot;wiki_eng&quot;,
-      &quot;title&quot;: &quot;Red panda&quot;,
-      &quot;content&quot;: {}
-    },
-   ...
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=Red+Panda&amp;database_match=wiki_eng</code></dt>
+<dd></dd></dl>
+
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+<span class="s2">&quot;documents&quot;</span><span class="o">:</span><span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;reference&quot;</span><span class="o">:</span> <span class="s2">&quot;http://en.wikipedia.org/wiki/Red Panda Adventures&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;weight&quot;</span><span class="o">:</span> <span class="mf">84.59</span><span class="p">,</span>
+      <span class="s2">&quot;links&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">&quot;RED&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PAND&quot;</span>
+      <span class="p">],</span>
+      <span class="s2">&quot;index&quot;</span><span class="o">:</span> <span class="s2">&quot;wiki_eng&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;Red Panda Adventures&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;content&quot;</span><span class="o">:</span> <span class="p">{}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;reference&quot;</span><span class="o">:</span> <span class="s2">&quot;http://en.wikipedia.org/wiki/Red panda&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;weight&quot;</span><span class="o">:</span> <span class="mf">84.59</span><span class="p">,</span>
+      <span class="s2">&quot;links&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">&quot;RED&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PAND&quot;</span>
+      <span class="p">],</span>
+      <span class="s2">&quot;index&quot;</span><span class="o">:</span> <span class="s2">&quot;wiki_eng&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;Red panda&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;content&quot;</span><span class="o">:</span> <span class="p">{}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+  <span class="p">}</span>
 </pre></div>
 </div>
 <p>IDOL indexes assign weights to terms based on their relevance to the
@@ -166,22 +171,31 @@ results.</p>
 <div class="section" id="search-operators">
 <h3>Search Operators<a class="headerlink" href="#search-operators" title="Permalink to this headline">¶</a></h3>
 <p><strong>Wildcard search</strong></p>
-<blockquote>
-<div>/querytextindex/v1?text=Obam*</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=Obam*</code></dt>
+<dd></dd></dl>
+
 <p>the <code class="docutils literal"><span class="pre">*</span></code> operator operates as the usual wildcard operator. In our
 example we search for any term that start with Obam. <strong>Tip:</strong> don&#8217;t run
 it on letters such as <code class="docutils literal"><span class="pre">a*</span></code> as the query will take a long time to
 return.</p>
 <p><strong>Occurence search</strong></p>
-<blockquote>
-<div>/querytextindex/v1?text=Gene[3:5]</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=Gene[3:5]</code></dt>
+<dd></dd></dl>
+
 <p>By specifying a column separated range of numbers within curly brackets,
 we are able to specify the number of occurences we are looking for. In
 this example, only the documents containing Gene between 3 and 5 times
 will be returned.</p>
 <p><strong>Exact Term Match</strong></p>
-<blockquote>
-<div>/querytextindex/v1?text=&#8221;lovely&#8221;</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=&quot;lovely&quot;</code></dt>
+<dd></dd></dl>
+
 <p>By putting a term in between quotes, you can ensure that the exact
 version of the word will be looked for and not other versions that share
 the same stem like <em>lovely, love, loved, loving</em> etc.</p>
@@ -197,25 +211,38 @@ Apple capitalized.</p>
 <p><strong>Boolean Operators</strong></p>
 <p>The text Parameter offers a level of boolean search or bracketed boolean
 Search.</p>
-<blockquote>
-<div>/querytextindex/v1?text=&#8221;Red+Panda&#8221; <strong>AND</strong> Elephant</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=&quot;Red+Panda&quot; **AND** Elephant</code></dt>
+<dd></dd></dl>
+
 <p>Boolean operator need to be capitalized , we can search for documents
 containing both red pandas and elephants.</p>
-<blockquote>
-<div>/querytextindex/v1?text=(Panda <strong>OR</strong> Elephant)<strong>AND</strong> Lion</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=(Panda **OR** Elephant) **AND** Lion</code></dt>
+<dd></dd></dl>
+
 <p>We can use brackets to group together elements and ensure the correct
 order in which the operators should be applied. In this casee want any
 document that mentions lions AND either pandas or elephants</p>
-<blockquote>
-<div>/querytextindex/v1?text=cat <strong>XOR</strong> dog</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=cat **XOR** dog</code></dt>
+<dd></dd></dl>
+
 <p>XOR stands for exclusive OR and will return documents that contain
 either <em>cat</em> or <em>dog</em> but NOT the two at the same time</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line">/querytextindex/v1?text=cat <strong>NOT</strong> dog</div>
-<div class="line">/querytextindex/v1?text=(cat <strong>NOT</strong> dog) <strong>OR</strong> (dog <strong>NOT</strong> cat)</div>
-</div>
-</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=cat **NOT** dog</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=(cat **NOT** dog) **OR** (dog **NOT** cat)</code></dt>
+<dd></dd></dl>
+
 <p>The NOT operator can restrict your searches NOT to include certain
 terms. In the example above we show how to return documents about cats
 that don&#8217;t include dog in the result. The second example shows how to
@@ -227,29 +254,43 @@ Operators</a></p>
 <div class="section" id="proximity-and-order-operators">
 <h3>Proximity and order Operators<a class="headerlink" href="#proximity-and-order-operators" title="Permalink to this headline">¶</a></h3>
 <p><strong>Sentence and Paragraph search</strong></p>
-<blockquote>
-<div>/querytextindex/v1?text=cat SENTENCE dog /querytextindex/v1?text=cat
-PARAGRAPH dog</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=cat SENTENCE dog /querytextindex/v1?text=cat</code></dt>
+<dt>
+<code class="descname">PARAGRAPH dog</code></dt>
+<dd></dd></dl>
+
 <p>The <em>SENTENCE</em> and <em>PARAGRAPH</em> operators allow you to make sure that two
 terms you are searching for are either in the same sentence or the same
 paragraph.</p>
 <p><strong>Order Operators</strong></p>
-<blockquote>
-<div>/querytextindex/v1?text=cat BEFORE dog /querytextindex/v1?text=cat
-AFTER dog</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=cat BEFORE dog /querytextindex/v1?text=cat</code></dt>
+<dt>
+<code class="descname">AFTER dog</code></dt>
+<dd></dd></dl>
+
 <p>The <em>BEFORE</em> and <em>AFTER</em> operators act like the <em>AND</em> operator and
 ensures that both terms are in the document result but it also will
 check that cat appears <em>BEFORE</em> dog or <em>AFTER</em> dog in the 2nd case.</p>
 <p><strong>Term Proximity</strong></p>
-<blockquote>
-<div>/querytextindex/v1?text=(monkey NEAR4 red)</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=(monkey NEAR4 red)</code></dt>
+<dd></dd></dl>
+
 <p>The NEAR<em>N</em> allows you to specify a maximum word distance between the
 terms you are querying for. In our example, the words monkey and red
 need to be within 4 words of each other. This allows us to make sure
 that the term red is associated closely with the term spider, returning
 documents such as <em>Red-tailed monkey</em> or <em>Red-faced spider monkey</em></p>
-<blockquote>
-<div>/querytextindex/v1?text=(red DNEAR3 monkey)</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=(red DNEAR3 monkey)</code></dt>
+<dd></dd></dl>
+
 <p>DNEAR<em>N</em> is in fact a directed NEAR<em>N</em> , it ensures that the terms
 appear in that order like the <em>BEFORE</em> operator , but also restricts the
 number of words that can appear in between.</p>
@@ -274,31 +315,45 @@ right associativity. You should use brackets to bind terms together as
 appropriate. Proximity operators must have terms on either side and
 cannot be adjacent to brackets.</p>
 <p><strong>Searching specific index fields</strong></p>
-<blockquote>
-<div>/querytextindex/v1?text=galaxy:DRETITLE /querytextindex/v1?text=(&#8220;LA
-galaxy&#8221;):DRETITLE /querytextindex/v1?text=(&#8220;LA galaxy&#8221;):DRETITLE AND
-Beckham</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=galaxy:DRETITLE /querytextindex/v1?text=(&quot;LA</code></dt>
+<dt>
+<code class="descname">galaxy&quot;):DRETITLE /querytextindex/v1?text=(&quot;LA galaxy&quot;):DRETITLE AND</code></dt>
+<dt id="Beckham">
+<code class="descname">Beckham</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Beckham" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <p>A column separating your search terms or bracketed search function will
 ensure that only the specified <em>index type</em> field is used. These field
 specific searches can also be used within more complicated boolean
 formulae.</p>
 <p><strong>Using multipliers to modify term weights</strong></p>
-<blockquote>
-<div>/querytextindex/v1?text=Red Panda[*5]</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=Red Panda[*5]</code></dt>
+<dd></dd></dl>
+
 <p>You can adjust the weight of a specific term by specifying a multipliers
 by which the weight of the term in your query will be multiplied. In our
 example we want Panda to have 5 times its usual weight. It can be useful
 if we get too many results about Red things that aren&#8217;t really about
 Pandas.</p>
 <p><strong>Setting manual term weights at the query level</strong></p>
-<blockquote>
-<div>/querytextindex/v1?text=Red[10] Panda[20]</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=Red[10] Panda[20]</code></dt>
+<dd></dd></dl>
+
 <p>It is also possible to set manual weights through the use of square
 brackets. In our case we are setting the weight of the term Panda to 20
 and the weight of the term Red to 10.</p>
 <p><strong>Applying weights to bracketed expressions</strong></p>
-<blockquote>
-<div>/querytextindex/v1?text= (Spider Monkey)[*3] OR Tiger</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text= (Spider Monkey)[*3] OR Tiger</code></dt>
+<dd></dd></dl>
+
 <p>We can multiply the weights of any bracketed expression to adjust
 relevance , in this case we assign a triple weight to spider and monkey
 terms.</p>
@@ -330,8 +385,28 @@ provide faceted search.</p>
 retrieve all the color values that occur in a search, and the
 corresponding counts. A common use for this information is to provide
 filters to a search</p>
-<blockquote>
-<div>/getparametricvalues/v1?index=wiki_eng&amp;field_name=wikipedia_type</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/getparametricvalues/v1?index=wiki_eng&amp;field_name=wikipedia_type</code></dt>
+<dd></dd></dl>
+
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;WIKIPEDIA_TYPE&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;PERSON&quot;</span><span class="o">:</span> <span class="mi">1126163</span><span class="p">,</span>
+    <span class="s2">&quot;PLACE&quot;</span><span class="o">:</span> <span class="mi">515896</span><span class="p">,</span>
+    <span class="s2">&quot;MUSICAL ALBUM&quot;</span><span class="o">:</span> <span class="mi">113211</span><span class="p">,</span>
+    <span class="s2">&quot;SPECIES&quot;</span><span class="o">:</span> <span class="mi">242170</span><span class="p">,</span>
+    <span class="s2">&quot;COMPANY&quot;</span><span class="o">:</span> <span class="mi">77766</span><span class="p">,</span>
+    <span class="s2">&quot;FILM&quot;</span><span class="o">:</span> <span class="mi">94852</span><span class="p">,</span>
+    <span class="s2">&quot;SONG&quot;</span><span class="o">:</span> <span class="mi">55061</span><span class="p">,</span>
+    <span class="s2">&quot;BOOK&quot;</span><span class="o">:</span> <span class="mi">46433</span><span class="p">,</span>
+    <span class="s2">&quot;VIDEO GAME&quot;</span><span class="o">:</span> <span class="mi">16559</span><span class="p">,</span>
+    <span class="s2">&quot;GEOGRAPHICAL FEATURE&quot;</span><span class="o">:</span> <span class="mi">90180</span><span class="p">,</span>
+    <span class="s2">&quot;PLAY&quot;</span><span class="o">:</span> <span class="mi">6670</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>In this example we use the wikipedia dataset and the WIKIPEDIA_TYPE to
 offer total counts for each WIKIPEDIA_TYPE Value.</p>
 <p><strong>Facetted Search</strong></p>
@@ -341,9 +416,35 @@ parameter as well as the <em>fieldtext=</em> operator, which will discuss
 further in this How To</p>
 <p>This means that if I want to run the same query as above but only on
 documents about cats and dogs, I would simply have to run</p>
-<blockquote>
-<div>/getparametricvalues/v1?index=wiki_eng&amp;field_name=wikipedia_type&amp;**text=**cats
-AND dogs</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/getparametricvalues/v1?index=wiki_eng&amp;field_name=wikipedia_type&amp;**text=** cats AND dogs</code></dt>
+<dt>
+<code class="descname">.. code-block:: javascript</code></dt>
+<dd><blockquote>
+<div><dl class="docutils">
+<dt>{</dt>
+<dd><dl class="first docutils">
+<dt>&#8220;WIKIPEDIA_TYPE&#8221;: {</dt>
+<dd>&#8220;PERSON&#8221;: 32738,
+&#8220;MUSICAL ALBUM&#8221;: 4885,
+&#8220;BOOK&#8221;: 3704,
+&#8220;FILM&#8221;: 6012,
+&#8220;COMPANY&#8221;: 3119,
+&#8220;SONG&#8221;: 2079,
+&#8220;VIDEO GAME&#8221;: 1158,
+&#8220;PLACE&#8221;: 6280,
+&#8220;GEOGRAPHICAL FEATURE&#8221;: 1302,
+&#8220;SPECIES&#8221;: 2835,
+&#8220;PLAY&#8221;: 441</dd>
+</dl>
+<p class="last">}</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+</dd></dl>
+
 <p>These fields can be used in search implementations to provide a list of
 all the available values for certain queries so that queries can then be
 filtered based on these <em>facets</em></p>
@@ -351,39 +452,67 @@ filtered based on these <em>facets</em></p>
 <div class="section" id="text-match-selectors">
 <h3>Text match selectors<a class="headerlink" href="#text-match-selectors" title="Permalink to this headline">¶</a></h3>
 <p><strong>Matching a single value</strong></p>
-<blockquote>
-<div>/querytextindex/v1?text=Painting&amp;**fieldtext=**MATCH{PERSON}:WIKIPEDIA_TYPE</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=Painting&amp;**fieldtext=** MATCH{PERSON}:WIKIPEDIA_TYPE</code></dt>
+<dd></dd></dl>
+
 <p>Since we have shown above that PERSON is a parametric entry for the
 WIKIPEDIA_TYPE field, we can run a search for all the documents that
 relate to painting that are of type <em>PERSON</em>.</p>
-<blockquote>
-<div>/getparametricvalues/v1?index=wiki_eng&amp;field_name=**person_profession**&amp;text=painting&amp;<strong>fieldtext=</strong>MATCH{PERSON}:WIKIPEDIA_TYPE</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/getparametricvalues/v1?index=wiki_eng&amp;field_name=**person_profession** &amp;text=painting&amp; **fieldtext=** MATCH{PERSON}:WIKIPEDIA_TYPE</code></dt>
+<dd></dd></dl>
+
 <p>The previous query did not give us all the <em>painters</em> however, so we can
 run another parametric query to find the list of the professions that
 get returned from our query of Persons related to painting.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;PERSON_PROFESSION&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;PAINTER&quot;</span><span class="o">:</span> <span class="mi">4409</span><span class="p">,</span>
+    <span class="s2">&quot;PHOTOGRAPHER&quot;</span><span class="o">:</span> <span class="mi">52</span><span class="p">,</span>
+    <span class="p">...</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>It seems Painter is the value that we want</p>
-<blockquote>
-<div>/querytextindex/v1?text=Painting&amp;**fieldtext=**MATCH{PERSON}:WIKIPEDIA_TYPE
-<strong>AND</strong> MATCH{PAINTER}:PERSON_PROFESSION</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=Painting&amp;**fieldtext=** MATCH{PERSON}:WIKIPEDIA_TYPE</code></dt>
+<dt>
+<code class="descname">**AND** MATCH{PAINTER}:PERSON_PROFESSION</code></dt>
+<dd></dd></dl>
+
 <p>While it may be redundant in this case, as the entries with a
 PERSON_PROFESSION should also be of type PERSON, we can use boolean
 operators in the fieltext parameter. Our example if finally retrieving
 all the Painters related to <em>painting</em> .</p>
 <p><strong>Matching multiple values</strong></p>
-<blockquote>
-<div>/querytextindex/v1?text=Painting&amp;**fieldtext=**MATCHALL{PAINTER,SCULPTOR}:PERSON_PROFESSION</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=Painting&amp;**fieldtext=** MATCHALL{PAINTER,SCULPTOR}:PERSON_PROFESSION</code></dt>
+<dd></dd></dl>
+
 <p>It could be that we want to get all the people who were BOTH painters
 and sculptors, the MATCHALL operator ensure that each of the values
 specified has a match in the documents returned.</p>
 <p><strong>Matching a value exclusively</strong></p>
-<blockquote>
-<div>/querytextindex/v1?text=Painting&amp;**fieldtext=**MATCHCOVER{PAINTER}:PERSON_PROFESSION</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=Painting&amp;**fieldtext=** MATCHCOVER{PAINTER}:PERSON_PROFESSION</code></dt>
+<dd></dd></dl>
+
 <p>Should we want the people who were ONLY painters, the MATCHCOVER
 specifier will make sure that all values of the PERSON_PROFESSION field
 match <em>PAINTER</em></p>
 <p><strong>Excluding Matches</strong></p>
-<blockquote>
-<div>/querytextindex/v1?text=Painting&amp;**fieldtext=**NOTMATCH{PAINTER}:PERSON_PROFESSION</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=Painting&amp;**fieldtext=** NOTMATCH{PAINTER}:PERSON_PROFESSION</code></dt>
+<dd></dd></dl>
+
 <p>NOTMATCH does what it says, the value specified will NOT be present in
 any of the specified fields for the results returned.</p>
 </div>
@@ -392,17 +521,29 @@ any of the specified fields for the results returned.</p>
 <h2>Numeric Search<a class="headerlink" href="#numeric-search" title="Permalink to this headline">¶</a></h2>
 <p>When dealing with Numeric type fields, many numeric operations are
 possible</p>
-<blockquote>
-<div>/querytextindex/v1?text=*&amp;fieldtext=**GREATER{1000000}**:PLACE_POPULATION</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=*&amp;fieldtext=**GREATER{1000000}**:PLACE_POPULATION</code></dt>
+<dd></dd></dl>
+
 <p>We can look for places with more than a million people.</p>
-<blockquote>
-<div>/querytextindex/v1?text=*&amp;fieldtext=**LESS{100000}**:PLACE_POPULATION</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=*&amp;fieldtext=**LESS{100000}**:PLACE_POPULATION</code></dt>
+<dd></dd></dl>
+
 <p>We can look for places with less than 100000 people.</p>
-<blockquote>
-<div>/querytextindex/v1?text=*&amp;fieldtext=**EQUAL{1061235}**:PLACE_POPULATION</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=*&amp;fieldtext=**EQUAL{1061235}**:PLACE_POPULATION</code></dt>
+<dd></dd></dl>
+
 <p>We can look for documents with population exactly equal to 1061235.</p>
-<blockquote>
-<div>/querytextindex/v1?text=*&amp;fieldtext=**NRANGE{12,26}**:PLACE_POPULATION</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=*&amp;fieldtext=**NRANGE{12,26}**:PLACE_POPULATION</code></dt>
+<dd></dd></dl>
+
 <p>We can look for documents with population between 12 and 26</p>
 </div>
 <div class="section" id="geo-coordinate-search">
@@ -410,13 +551,26 @@ possible</p>
 <p>Numeric fields can define many things, like population or prices,
 however, two numeric fields paired together can also indicate
 coordinates.</p>
-<blockquote>
-<div><p>querytextindex/v1?text=*&amp;fieldtext=<strong>DISTCARTESIAN</strong>{40,-100,2}:X:Y
-querytextindex/v1?text=*&amp;fieldtext=<strong>DISTCARTESIAN</strong>{x,y,radius}:X:Y</p>
-<p>querytextindex/v1?text=*&amp;fieldtext=<strong>DISTSPHERICAL</strong>{40,-100,2}:LAT:LON
-querytextindex/v1?text=*&amp;fieldtext=<strong>DISTSPHERICAL</strong>{lat,lon,radius
-in KM}:LAT:LON</p>
-</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=*&amp;fieldtext= **DISTCARTESIAN** {40,-100,2}:X:Y</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=*&amp;fieldtext= **DISTCARTESIAN** {x,y,radius}:X:Y</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=*&amp;fieldtext= **DISTSPHERICAL** {40,-100,2}:LAT:LON</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=*&amp;fieldtext= **DISTSPHERICAL** {lat,lon,radius in KM}:LAT:LON</code></dt>
+<dd></dd></dl>
+
 <p>Places indexed in the wikipedia dataset have LAT and LON fields,
 indicating their approximate coordinates. DISTCARTESIAN will treat the
 coordinates as it would in a two-dimensional plane with the distance
@@ -427,13 +581,23 @@ find places in the vicinity of another.</p>
 <div class="section" id="date-search">
 <h2>Date Search<a class="headerlink" href="#date-search" title="Permalink to this headline">¶</a></h2>
 <p>Date fields allow for useful date filtering on the results.</p>
-<blockquote>
-<div>/querytextindex/v1?text=*&amp;fieldtext=**GTNOW{}**:CREATED_DATE
-/querytextindex/v1?text=*&amp;fieldtext=**LTNOW{}**:CREATED_DATE</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=*&amp;fieldtext=**GTNOW{}**:CREATED_DATE</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=*&amp;fieldtext=**LTNOW{}**:CREATED_DATE</code></dt>
+<dd></dd></dl>
+
 <p><em>GTNOW</em> and <em>LTNOW</em> let you restrict for articles created in the past ,
 or the future !</p>
-<blockquote>
-<div>/querytextindex/v1?text=*&amp;fieldtext=**RANGE{-7,0}**:CREATED_DATE</div></blockquote>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=*&amp;fieldtext=**RANGE{-7,0}**:CREATED_DATE</code></dt>
+<dd></dd></dl>
+
 <p>The RANGE operator lets you specify exact time range for which the
 specified DATE field will be checked against. In our example we want
 CREATED_DATE to be within 7 days in the past.</p>
@@ -447,19 +611,31 @@ allowed date formats for the operator</li>
 </ul>
 </div>
 <div class="section" id="other-operations">
-<h2>6 Other Operations<a class="headerlink" href="#other-operations" title="Permalink to this headline">¶</a></h2>
+<h2>Other Operations<a class="headerlink" href="#other-operations" title="Permalink to this headline">¶</a></h2>
 <p><strong>Boolean operators in fieldtext</strong></p>
 <p>The fieldtext operator supports the three basic boolean operators NOT,
 AND and OR.</p>
-<blockquote>
-<div><p>/querytextindex/v1?text=Painting&amp;fieldtext=MATCH{PERSON}:WIKIPEDIA_TYPE
-<strong>AND</strong> MATCH{PAINTER}:PERSON_PROFESSION</p>
-<p>/querytextindex/v1?text=*&amp;fieldtext=**GREATER{1000000}**:PLACE_POPULATION
-<strong>OR</strong> <strong>DISTCARTESIAN</strong>{50,-10,2}:LAT:LON</p>
-</div></blockquote>
-<p><strong>Field Existence</strong> &gt;
-/querytextindex/v1?text=*&amp;fieldtext=**EXISTS{}**:PLACE_POPULATION &gt;
-/querytextindex/v1?text=*&amp;fieldtext=**EMPTY{}**:PLACE_POPULATION</p>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=Painting&amp;fieldtext=MATCH{PERSON}:WIKIPEDIA_TYPE **AND** MATCH{PAINTER}:PERSON_PROFESSION</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=*&amp;fieldtext=**GREATER{1000000}**:PLACE_POPULATION **OR** **DISTCARTESIAN** {50,-10,2}:LAT:LON</code></dt>
+<dd></dd></dl>
+
+<p><strong>Field Existence</strong></p>
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=*&amp;fieldtext=**EXISTS{}**:PLACE_POPULATION</code></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<code class="descname">/querytextindex/v1?text=*&amp;fieldtext=**EMPTY{}**:PLACE_POPULATION</code></dt>
+<dd></dd></dl>
+
 <p>The EXISTS Operator allows us to ensure that a field is present in the
 result. Here we are only returning documents that have the field
 PLACE_POPULATION. The oppositve EMPTY will return results if the field

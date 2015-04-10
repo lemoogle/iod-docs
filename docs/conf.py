@@ -32,6 +32,7 @@ import shlex
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
+    'sphinxcontrib.httpdomain',
     'sphinx.ext.intersphinx',
 ]
 
